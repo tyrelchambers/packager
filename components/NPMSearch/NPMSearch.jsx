@@ -1,4 +1,4 @@
-import { faAt } from "@fortawesome/free-solid-svg-icons";
+import { faBoxOpen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -10,6 +10,7 @@ const NPMSearch = ({ state, dispatch }) => {
   const [query, setQuery] = useState("");
   const [queryResults, setQueryResults] = useState([]);
   const [searching, setSearching] = useState(false);
+  const [deps, setDeps] = useState([]);
 
   const searchNpm = async (q) => {
     return await axios.get("http://localhost:3000/api/npmSearch", {
@@ -43,10 +44,22 @@ const NPMSearch = ({ state, dispatch }) => {
         package: p,
       },
     });
+    setDeps([...deps, p.name]);
   };
 
+  const removePackage = (p) => {
+    dispatch({
+      type: "removeDep",
+      data: {
+        package: p,
+      },
+    });
+
+    const clone = deps.filter((dep) => dep !== p);
+    setDeps(clone);
+  };
   return (
-    <div>
+    <>
       <InputWrapper labelTitle="Add an NPM package">
         <Input
           type="search"
@@ -73,7 +86,33 @@ const NPMSearch = ({ state, dispatch }) => {
             <p className="text-pink-500 italic">{q.version}</p>
           </div>
         ))}
-    </div>
+
+      {deps.length > 0 && (
+        <div className="mt-6 flex flex-col">
+          <p className="font-bold text-gray-600">Added dependencies</p>
+          <hr />
+
+          {deps.map((d) => (
+            <div className="bg-gray-800 rounded-md p-2 px-4 mt-2 border-2 flex items-center justify-between">
+              <div className="flex items-center w-full">
+                <FontAwesomeIcon
+                  icon={faBoxOpen}
+                  className="text-yellow-300 mr-4 "
+                  size="xs"
+                />
+                <p className="text-white">{d}</p>
+              </div>
+
+              <FontAwesomeIcon
+                icon={faTrash}
+                className="text-gray-400 hover:text-red-500 transition-all text-sm"
+                onClick={() => removePackage(d)}
+              />
+            </div>
+          ))}
+        </div>
+      )}
+    </>
   );
 };
 

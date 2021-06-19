@@ -1,6 +1,6 @@
 export function jsonReducer(state, action) {
   switch (action.type) {
-    case "update":
+    case "update": {
       const newState = {
         ...state,
       };
@@ -16,6 +16,21 @@ export function jsonReducer(state, action) {
       return {
         ...newState,
       };
+    }
+
+    case "removeDep": {
+      const newState = {
+        ...state,
+      };
+
+      const item = action.data.package;
+
+      delete newState.dependencies[item];
+
+      return {
+        ...newState,
+      };
+    }
     default:
       throw new Error();
   }

@@ -1,9 +1,9 @@
 import Head from "next/head";
 import dynamic from "next/dynamic";
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 import { jsonReducer } from "../reducers/jsonReducer";
 import NPMSearch from "../components/NPMSearch/NPMSearch";
-import InputWrapper from "../components/InputWrapper/InputWrapper";
+
 const CodeEditor = dynamic(
   () => import("../components/CodeEditor/CodeEditor"),
   {
@@ -41,11 +41,7 @@ export default function Editor() {
           Use this tool to generate your perfect package.json file!
         </p>
 
-        <div className="mt-10">
-          <InputWrapper labelTitle="Pick from a template (optional)"></InputWrapper>
-        </div>
-
-        <div className="mt-10">
+        <div className="mt-8">
           <NPMSearch state={state} dispatch={dispatch} />
         </div>
       </div>
