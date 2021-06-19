@@ -6,7 +6,7 @@ import Input from "../Input/Input";
 import InputWrapper from "../InputWrapper/InputWrapper";
 import Spinner from "../Spinner/Spinner";
 
-const NPMSearch = ({ state, dispatch }) => {
+const NPMSearch = ({ dispatch }) => {
   const [query, setQuery] = useState("");
   const [queryResults, setQueryResults] = useState([]);
   const [searching, setSearching] = useState(false);
@@ -39,7 +39,7 @@ const NPMSearch = ({ state, dispatch }) => {
 
   const installHandler = (p) => {
     dispatch({
-      type: "update",
+      type: "addDep",
       data: {
         package: p,
       },
@@ -78,7 +78,7 @@ const NPMSearch = ({ state, dispatch }) => {
       {!searching &&
         queryResults.map((q, id) => (
           <div
-            className="flex justify-between items-center p-2 query-result rounded-sm bg-gray-100 my-2 hover:border-pink-300 hover:border-2 border-2 border-transparent transition-all"
+            className="flex justify-between items-center p-2 query-result rounded-sm bg-white my-2 hover:border-pink-300 hover:border-2 border-2 border-transparent transition-all"
             key={id}
             onClick={() => installHandler(q)}
           >

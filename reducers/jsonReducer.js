@@ -1,6 +1,6 @@
 export function jsonReducer(state, action) {
   switch (action.type) {
-    case "update": {
+    case "addDep": {
       const newState = {
         ...state,
       };
@@ -26,6 +26,32 @@ export function jsonReducer(state, action) {
       const item = action.data.package;
 
       delete newState.dependencies[item];
+
+      return {
+        ...newState,
+      };
+    }
+
+    case "addProperty": {
+      const newState = {
+        ...state,
+      };
+      const { key, value } = action.data;
+
+      newState[key] = value;
+
+      return {
+        ...newState,
+      };
+    }
+
+    case "removeProperty": {
+      const newState = {
+        ...state,
+      };
+      const { key } = action.data;
+
+      delete newState[key];
 
       return {
         ...newState,
