@@ -6,6 +6,7 @@ import NPMSearch from "../components/NPMSearch/NPMSearch";
 import { H1, H2 } from "../components/Headings/Headings";
 import PackageProps from "../components/PackageProps/PackageProps";
 import { packageProperties } from "../constants/packageProperties";
+import styles from "../styles/editor.module.css";
 
 const CodeEditor = dynamic(
   () => import("../components/CodeEditor/CodeEditor"),
@@ -72,16 +73,14 @@ export default function Editor() {
           rel="stylesheet"
         />
       </Head>
-      <div className="mb-10 col-span-1">
+      <div className="h-full col-span-1 flex flex-col">
         <H1 className="text-3xl lobster text-gradient">Packagr</H1>
         <p className=" text-gray-500 mt-2">
           Use this tool to generate your perfect package.json file!
         </p>
 
-        <div className="h-3/4 overflow-auto">
-          <div className="mt-8">
-            <NPMSearch state={state} dispatch={dispatch} />
-          </div>
+        <div className={styles.header_content}>
+          <NPMSearch state={state} dispatch={dispatch} />
 
           <div className="mt-8 h-1/3">
             <H2>Properties</H2>
@@ -102,7 +101,8 @@ export default function Editor() {
                   data-index={id}
                 />
               ))}
-            <div className="mt-4 h-full overflow-auto">
+            {addedProperties.length > 0 && <hr style={{ marginTop: "1em" }} />}
+            <div className="mt-2 ">
               {propOptions
                 .sort((a, b) => {
                   if (a.label < b.label) return -1;
