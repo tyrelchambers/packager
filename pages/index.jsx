@@ -2,6 +2,9 @@ import Head from "next/head";
 import Link from "next/link";
 import React from "react";
 import styles from "../styles/index.module.css";
+import Image from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
 const index = () => {
   return (
     <div className="min-h-screen relative">
@@ -15,7 +18,7 @@ const index = () => {
           rel="stylesheet"
         />
       </Head>
-      <div className="flex flex-col items-center max-w-screen-md w-full m-auto py-20">
+      <div className="flex flex-col items-center max-w-screen-md w-full m-auto py-20 z-10 relative">
         <h1 className=" text-4xl lobster text-gradient text-center w-full">
           Packagr
         </h1>
@@ -35,12 +38,43 @@ const index = () => {
 
         <div className="flex max-w-md w-full justify-center mt-16">
           <Link href="/editor">
-            <p className="p-4 w-40 bg-red-400 text-center text-white font-bold rounded-lg shadow-lg">
+            <a className="p-4 w-40 bg-red-400 text-center text-white font-bold rounded-lg shadow-lg">
               Go to Editor
-            </p>
+            </a>
           </Link>
         </div>
       </div>
+      <div
+        className={`mt-16 py-10 flex flex-col items-center w-full relative ${styles.imageWrapper}`}
+      >
+        <div className="shadow-xl rounded-lg p-6 bg-gray-100 z-10">
+          <Image
+            src="/screenie.png"
+            alt="Screenshot of the editor"
+            width={1240}
+            height={600}
+          />
+        </div>
+      </div>
+
+      <footer className="w-full p-8 flex flex-col mt-16 items-center">
+        <p className=" text-gray-600">
+          Passionately made by{" "}
+          <a
+            href="https://twitter.com/imtyrelchambers"
+            className="transition-all hover:text-blue-400 font-bold"
+          >
+            Tyrel Chambers
+          </a>
+        </p>
+        <a
+          href="https://github.com/tyrelchambers/packager"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <FontAwesomeIcon icon={faGithub} className="mt-6" />
+        </a>
+      </footer>
     </div>
   );
 };
