@@ -13,7 +13,7 @@ const NPMSearch = ({ dispatch }) => {
   const [deps, setDeps] = useState([]);
 
   const searchNpm = async (q) => {
-    return await axios.get("http://localhost:3000/api/npmSearch", {
+    return await axios.get(`${process.env.API}/api/npmSearch`, {
       params: { q },
     });
   };
